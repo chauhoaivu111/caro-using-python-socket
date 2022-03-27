@@ -61,16 +61,13 @@ class Caro:
         self.board[int(move[0])][int(move[1])] = player
         self.print_board()
         if self.check_if_won(move):
-            if player == 'X':
-                print('X won')
-            else:
-                print('O won')
-        if self.winner == self.you:
-            print('You win')
-            exit()
-        elif self.winner == self.opponent:
-            print('You lose')
-            exit()
+            self.winner = player
+            if self.winner == self.you:
+                print('You win')
+                exit()
+            elif self.winner == self.opponent:
+                print('You lose')
+                exit()
 
     def check_valid_move(self, move) -> bool:
         return self.board[int(move[0])][int(move[1])] == ' '
@@ -125,7 +122,7 @@ class Caro:
 
     def initialize_board(self):
         return [
-            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # 0
+            [' ', 'X', 'X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # 0
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # 1
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # 2
             [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],  # 3
