@@ -1,6 +1,7 @@
 import socket
 import threading
 
+
 class Caro:
     def __init__(self):
         self.board = self.initialize_board()
@@ -12,10 +13,13 @@ class Caro:
 
         # self.counter = 0
 
-    def host_game(self, host, port):
+    def host_game(self, port=8080):
+        host = socket.gethostbyname(socket.gethostname())
+
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind((host, port))
         server.listen(1)
+        print(f'Server is listening on {host}:{port}\nWaiting for your opponent...\n')
 
         client, addr = server.accept()
 
@@ -25,14 +29,19 @@ class Caro:
         threading.Thread(target=self.handle_connection, args=(client,)).start()
         server.close()
 
-    def connect_to_game(self, host, port):
+    def connect_to_game(self):
+        host = input('host: ')
+        port = input('port: ')
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect((host, port))
+        try:
+            client.connect((host, int(port)))
+        except Exception as e:
+            print(e)
+            exit()
 
         self.you = 'O'
         self.opponent = 'X'
         threading.Thread(target=self.handle_connection, args=(client,)).start()
-
 
     def handle_connection(self, client):
         while not self.game_over:
@@ -112,13 +121,11 @@ class Caro:
 
         return False
 
-
     def print_board(self):
         temp = ''
         for line in self.board:
             temp += '--'.join(line) + '\n'
         print(temp)
-
 
     def initialize_board(self):
         return [
@@ -145,5 +152,7 @@ class Caro:
             # 0    1    2    3    4    5    6    7    8    9    10   11   12   13   14   15   16   17   18   19
         ]
 
-game = Caro()
-game.host_game('localhost', 9003)
+
+if __name__ == '__main__':
+    game = Caro()
+    game.host_game(8081)
