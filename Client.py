@@ -8,7 +8,7 @@ from Server import Threading_socket
 class CaroGame(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Caro Tkinter - codelearn.io")
+        self.title("Caro  SE ")
         self.Buts = {}
         self.memory = []
         self.Threading_socket = Threading_socket(self)
@@ -22,18 +22,18 @@ class CaroGame(tk.Tk):
         frame2 = tk.Frame(self)
         frame2.pack()
         # undo button
-        Undo = tk.Button(frame1, text="Undo", width=10, 
+        Undo = tk.Button(frame1, text="Undo", width=10, background="#EAF474",
                          command=partial(self.Undo, synchronized=True))
         Undo.grid(row=0, column=0, padx=30)
 
         tk.Label(frame1, text="IP", pady=4).grid(row=0, column=1)
         inputIp = tk.Entry(frame1, width=20)  # ip address receiving frame
         inputIp.grid(row=0, column=2, padx=5)
-        connectBT = tk.Button(frame1, text="Connect", width=10,
+        connectBT = tk.Button(frame1, text="Connect", width=10, background="#74F47A",
                               command=lambda: self.Threading_socket.clientAction(inputIp.get()))
         connectBT.grid(row=0, column=3, padx=3)
 
-        makeHostBT = tk.Button(frame1, text="MakeHost", width=10,  # button create host
+        makeHostBT = tk.Button(frame1, text="Get IP", width=10, background="#74A8F4",  # button create host
                                command=lambda: self.Threading_socket.serverAction())
         makeHostBT.grid(row=0, column=4, padx=30)
         # Taoj bangr Ox, Oy
@@ -52,14 +52,14 @@ class CaroGame(tk.Tk):
                 self.Buts[x, y]['text'] = 'O'
                 self.Threading_socket.sendData("{}|{}|{}|".format("hit", x, y))
                 if(self.checkWin(x, y, "O")):
-                    self.notification("Winner", "O")
+                    self.notification("Winner", "user - O")
                     self.newGame()
             else:
                 print(self.Threading_socket.name)
                 self.Buts[x, y]['text'] = 'X'
                 self.Threading_socket.sendData("{}|{}|{}|".format("hit", x, y))
                 if(self.checkWin(x, y, "X")):
-                    self.notification("Winner", "X")
+                    self.notification("Winner", "user - X")
                     self.newGame()
 
     def notification(self, title, msg):

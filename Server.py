@@ -22,7 +22,7 @@ class Threading_socket():
             # Socket configuration
             socket.AF_INET, socket.SOCK_STREAM) 
         self.conn.connect((HOST, PORT)) 
-        self.gui.notification("Đã kết nối tới", str(HOST))
+        self.gui.notification("connected successfully", str(HOST))
         # make a connection to the server
         t1 = threading.Thread(target=self.client)  
         # create client thread
@@ -49,9 +49,9 @@ class Threading_socket():
     def serverAction(self):
         self.name = "server"
         HOST = socket.gethostbyname(socket.gethostname())  
-        print("Make host.........." + HOST)
+        print("Get IP.........." + HOST)
         # Set up an address
-        self.gui.notification("Gui IP chp ban", str(HOST))
+        self.gui.notification("your IP", str(HOST))
         # Set listening port
         PORT = 8000  
         # configure connection
